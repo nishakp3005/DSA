@@ -10,6 +10,14 @@ class Node{
         this->data = data;
         this->next = NULL;
     }
+
+    ~Node(){
+        int value = this->data;
+        if(this->next != NULL){
+            delete next;
+            this->next = NULL;
+        }
+    }
 };
 
 void print(Node* &head) {
@@ -73,9 +81,60 @@ void insertAtPosition(Node* &tail, Node* & head, int position, int d) {
     temp -> next = nodeToInsert;
 }
 
-
+void deleteNode(int pos, Node* &head){
+    int count = 1;
+    Node* current = head;
+    Node* prev = NULL;
+    if(pos==1){
+        Node* temp = head;
+        head = head->next;
+        temp->next = NULL;
+        delete temp;
+    }
+    else{
+        while(count < pos){
+            prev = current;
+            current = current->next;
+            count++; 
+        }
+    }
+    prev->next = current->next;
+    current->next = NULL;
+    delete current;
+}
 
 int main(){
+    Node* node1 = new Node(10);
+    cout << node1 -> data << endl;
+   cout << node1 -> next << endl;
     
+    //head pointed to node1
+    Node* head = node1; 
+    Node* tail = node1;
+    print(head);
+
+    insertAtTail(tail, 12);
+
+    print(head);
+    
+    insertAtTail(tail, 15);
+    print(head);
+
+    insertAtPosition(tail,head, 4, 22);
+    print(head);    
+
+    cout << "head " << head -> data << endl;
+    cout << "tail " << tail -> data << endl;
+
+    deleteNode(1, head);
+    print(head);    
+    
+
+    // tail -> next = head ->next;
+
+    // cout << "head " << head -> data << endl;
+    // cout << "tail " << tail -> data << endl;
+    // print(head);
+
     return 0;
 }
