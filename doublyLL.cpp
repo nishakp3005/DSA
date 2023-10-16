@@ -109,6 +109,10 @@ void deleteNode(Node* &head, int position){
     }
 }
 
+// void reverse(Node* &head){
+    
+// }
+
 int main(){
     Node* node1 = new Node(50);
     Node* head = node1;
