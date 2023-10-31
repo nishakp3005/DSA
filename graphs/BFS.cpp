@@ -12,7 +12,7 @@ void prepareAdjList(unordered_map<int, list<int>> &adj ,vector<pair<int, int>> &
     }
 }
 
-void helper(vector<int> &ans, unordered_map<int, list<int>> &adj, unordered_map<int, bool> visited, int node){
+void helper(vector<int> &ans, unordered_map<int, list<int>> &adj, unordered_map<int, bool> &visited, int node){
     queue<int> q;
     q.push(node);
     visited[node] = true;
@@ -37,31 +37,33 @@ void print(vector<int> ans){
     cout<<endl;
 }
 
-vector<int> BFS (vector<pair<int, int>> &edges){
+vector<int> BFS (int vertex, vector<pair<int, int>> &edges){
     vector<int> ans;
     unordered_map<int, bool> visited;
     unordered_map<int, list<int>> adj;
     prepareAdjList(adj, edges);
-    helper(ans, adj, visited, 0);
+    for (int i = 0; i < vertex; i++){
+        if(!visited[i]){
+            helper(ans, adj, visited, 0);
+        }
+    }
     print(ans);
     return ans;
 }
 
 int main(){
-    vector<pair<int, int>> edges = {{0, 1},
-                                    {0, 2},
-                                    {1, 2},
-                                    {0, 3}};
     // vector<pair<int, int>> edges = {{0, 1},
     //                                 {0, 2},
-    //                                 {0, 3},
-    //                                 {1, 4},
-    //                                 {1, 7},
-    //                                 {2, 5},
-    //                                 {3, 6}};
+    //                                 {1, 2},
+    //                                 {0, 3}};
+    vector<pair<int, int>> edges = {{0, 1},
+                                    {0, 2},
+                                    {0, 3},
+                                    {1, 4},
+                                    {1, 7},
+                                    {2, 5},
+                                    {3, 6}};
     // vector<pair<int, int>> edges = {{0,1}, {0,2}, {0,3}};
-    unordered_map<int, list<int>> adj;
-    prepareAdjList(adj, edges);
-    BFS(edges);
+    BFS(8, edges);
     return 0;
 }
